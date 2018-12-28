@@ -10,9 +10,8 @@ const login = (req, res) => {
     }
 
     usuarioModel.login(usuario)
-    .then(data =>
-        {
-            if(data.length == 0){
+        .then(data => {
+            if (data.length == 0) {
 
                 return res.json({
                     ok: false,
@@ -20,7 +19,7 @@ const login = (req, res) => {
                 });
             }
 
-            let token = jwt.sign({ usuario: data[0] }, process.env.SEED_JWT, { expiresIn: '30d'});
+            let token = jwt.sign({ usuario: data[0] }, process.env.SEED_JWT, { expiresIn: '30d' });
 
             res.json({
                 ok: true,
@@ -28,13 +27,12 @@ const login = (req, res) => {
                 data
             });
         })
-        .catch(err => 
-        {
+        .catch(err => {
             res.json({
                 ok: false,
                 err
             })
-            
+
         });
 }
 
@@ -42,21 +40,28 @@ const login = (req, res) => {
 const traerUsuarios = (req, res) => {
 
     usuarioModel.traerUsuarios()
-    .then(data =>
-    {
-        res.json({
-            ok: true,
-            data
-        });
-    })
-    .catch(err => 
-    {
-        res.json({
-            ok: false,
-            err
+        .then(data => {
+            res.json({
+                ok: true,
+                data
+            });
         })
-        
+        .catch(err => {
+            res.json({
+                ok: false,
+                err
+            })
+
+        });
+}
+
+const fileUpload = (req, res) => {
+
+    res.json({
+        ok: true,
+        data: req.filename
     });
+
 }
 
 
@@ -64,5 +69,6 @@ const traerUsuarios = (req, res) => {
 
 module.exports = {
     traerUsuarios,
-    login
+    login,
+    fileUpload
 }

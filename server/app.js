@@ -12,6 +12,6 @@ app.use('/usuario', usuarioRoute);
 
 app.listen(3000, (err) => {
 
-    if(err) throw err;
+    if (err) throw err;
     console.log('Servidor corriendo en puerto 3000');
 });
